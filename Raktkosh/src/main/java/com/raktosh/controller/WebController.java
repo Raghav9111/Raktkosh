@@ -1,9 +1,13 @@
 package com.raktosh.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,15 +54,17 @@ public class WebController {
 			return new ApiResponse(false, "Login Unsuccessful", e.getMessage());
 		}
 	}
-		
-	@PostMapping("/bank_reg")
-	public ApiResponse bloodBankReg(@RequestBody BloodBankModel bankModel) {
-		try {
-			System.out.println(bankModel.getPassword());
-			return new ApiResponse(true, "Data aagya");
+	@GetMapping("/verify/{email}")
+	public ApiResponse verifyAccount(@PathVariable(name="email") String email) {
+		Optional<User> op = userService.findByEmail(email);
+		if(op.isPresent()) {
+			User user = op.get();
+			user.setActiveStatus(true);
+			user = userService.update(user);
+			return new ApiResponse(true, "Account Verified");
 		}
-		catch(Exception e) {
-			return new ApiResponse(false, "BloodBank not save", e.getMessage());
+		else {
+			return new ApiResponse(false, "Account not Verified");
 		}
 	}
 	

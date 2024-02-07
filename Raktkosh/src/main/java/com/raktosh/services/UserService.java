@@ -1,5 +1,7 @@
 package com.raktosh.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,5 +31,13 @@ public class UserService implements UserDetailsService
 	public User saveUser(User user) {
 		user = userRepo.save(user);
 		return user;
+	}
+
+	public Optional<User> findByEmail(String email) {
+		return userRepo.findByEmail(email);
+	}
+
+	public User update(User user) {
+		return userRepo.save(user);
 	}
 }
