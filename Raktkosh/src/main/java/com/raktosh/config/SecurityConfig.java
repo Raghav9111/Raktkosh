@@ -50,6 +50,7 @@ public class SecurityConfig {
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.requestMatchers("/bloodbank/**").hasRole("BLOODBANK")
 						.requestMatchers("/donor/**").hasRole("DONOR")
+						.requestMatchers("/user/**").hasAnyRole("ADMIN","BLOODBANK","DONOR")
 						.anyRequest().authenticated())
 				.exceptionHandling(t->t.accessDeniedPage("/web/accessDenied"))
 				.formLogin(t->{

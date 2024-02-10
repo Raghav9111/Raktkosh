@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.raktosh.config.JwtTokenUtil;
 import com.raktosh.models.LoginResponse;
 import com.raktosh.entities.User;
 import com.raktosh.models.BloodBankModel;
+import com.raktosh.models.ChangePasswordModel;
 import com.raktosh.models.LoginModel;
 import com.raktosh.services.UserService;
 import com.raktosh.utils.ApiResponse;
@@ -37,7 +39,7 @@ public class WebController {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+		
 	@PostMapping("/login")
 	public ApiResponse login(@RequestBody LoginModel loginModel) {
 		try {
@@ -67,6 +69,25 @@ public class WebController {
 			return new ApiResponse(false, "Account not Verified");
 		}
 	}
+	/*@PostMapping("/change_password/{email}")
+	public ApiResponse changePassword(@PathVariable(name="email") String email, @RequestBody ChangePasswordModel model) {
+		try {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			final User user = (User)principal;
+			if(passwordEncoder.matches(model.getOldPassword(), user.getPassword())) {
+				System.out.println("password matched");
+			}
+			else {
+				System.out.println("password not matched");
+			}
+		}
+		catch(Exception e) {
+			
+		}
+		return new ApiResponse(true, "code run");
+	}*/
+	
+	
 	
 }
 
