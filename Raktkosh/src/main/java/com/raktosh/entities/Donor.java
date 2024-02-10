@@ -47,7 +47,7 @@ public class Donor {
     private String aadharCard;
 
     
-    @Column(nullable = false)
+    @Column(name = "lastdonatedate")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate lastDonateDate;
 
@@ -66,4 +66,21 @@ public class Donor {
     		@JoinColumn(name="bankId",referencedColumnName  ="bank_id")
     })
     private Set<BloodBank> banks = new HashSet<BloodBank>();
+
+	public Donor(String name, String phone, String address, String gender, LocalDate dob, String bloodGroup,
+			String aadharCard, String type, User user, Set<BloodBank> banks) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+		this.gender = gender;
+		this.dob = dob;
+		this.bloodGroup = bloodGroup;
+		this.aadharCard = aadharCard;
+		this.type = type;
+		this.user = user;
+		this.banks = banks;
+	}
+    
+    
 }

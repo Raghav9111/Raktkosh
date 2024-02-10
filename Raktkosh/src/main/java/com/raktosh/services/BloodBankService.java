@@ -32,11 +32,15 @@ public class BloodBankService {
 			bankObj = bankRepo.save(bankObj);
 			
 			mailService.verificationMail(bankModel.getEmail(), bankModel.getName());
-			return new ApiResponse(true, "BloodBank Save", bankObj);
+			return new ApiResponse(true, "BloodBank Saved", bankObj);
 		}
 		catch(Exception e) {
-			return new ApiResponse(false, "Bank Not save", e.getMessage());
+			return new ApiResponse(false, "Bank Not saved", e.getMessage());
 		}
+	}
+
+	public BloodBank getBankByUser(User uSER) {
+		return bankRepo.findByUser(uSER).get();
 	}
 	
 	
