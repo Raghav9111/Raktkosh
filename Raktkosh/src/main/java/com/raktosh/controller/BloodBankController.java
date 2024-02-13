@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.raktosh.models.AddCampModel;
 import com.raktosh.models.DonorModel;
+import com.raktosh.services.CampService;
 import com.raktosh.services.DonorService;
 import com.raktosh.utils.ApiResponse;
 
@@ -17,6 +19,9 @@ public class BloodBankController
 	@Autowired
 	private DonorService donorService;
 	
+	@Autowired
+	private CampService campService;
+	
 	@PostMapping("/add_donor")
 	public ApiResponse addDonor(@RequestBody DonorModel model)
 	{
@@ -24,4 +29,14 @@ public class BloodBankController
 		
 		return response;
 	}
+	
+	@PostMapping("/add_camp")
+	public ApiResponse addCamp(@RequestBody AddCampModel model)
+	{
+		
+		ApiResponse response = campService.addCamp(model);
+		
+		return response;
+	}
+	
 }

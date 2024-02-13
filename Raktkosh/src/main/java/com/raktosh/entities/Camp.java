@@ -44,5 +44,17 @@ public class Camp {
     @JoinColumn(name = "bloodbank", nullable = false)
     private BloodBank bloodBank;
 
+	public Camp(String campTitle, String description, String address, LocalDate startDate, LocalDate endDate,
+			String postor, BloodBank bloodBank) {
+		super();
+		this.campTitle = campTitle;
+		this.description = description;
+		this.address = address;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.postor = postor;
+		this.bloodBank = bloodBank;
+	}
+
    
 }
